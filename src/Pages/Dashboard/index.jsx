@@ -1,18 +1,16 @@
-import { Buttons } from "../../Components/Buttons";
-import { SectionDash, FormTarefas, MainDash } from "./style";
-import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { api } from "../../Services";
-import { useEffect } from "react/cjs/react.development";
+import { Buttons } from "../../Components/Buttons";
+import { toast } from "react-hot-toast";
+import { SectionDash, FormTarefas, MainDash } from "./style";
 
 export const Dashboard = ({ authenticated }) => {
   const [ListaTarefas, setListaTarefas] = useState([]);
-  const history = useHistory();
 
   const [token] = useState(
-    JSON.parse(localStorage.getItem("@doit:token")) || ""
+    JSON.parse(localStorage.getItem("@Doit:token")) || ""
   );
 
   const { register, handleSubmit } = useForm();
@@ -38,16 +36,16 @@ export const Dashboard = ({ authenticated }) => {
           }),
         }));
         setListaTarefas(apiTasks);
-      })
-      .catch((err) => {
-        console.log(err);
-        // toast.error("Não foi possivel adicionar a tarefa");
       });
   };
 
   useEffect(() => {
     loadCards();
   }, []);
+
+  if (!authenticated) {
+    return <Redirect to="/login" />;
+  }
 
   const onSubmitTasks = ({ task }) => {
     if (!task) {
@@ -97,10 +95,6 @@ export const Dashboard = ({ authenticated }) => {
     toast.success("Deslogado");
     document.location.reload(true);
   };
-
-  if (!authenticated) {
-    return <Redirect to="/login" />;
-  }
 
   return (
     <SectionDash>

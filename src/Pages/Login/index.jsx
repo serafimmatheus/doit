@@ -27,17 +27,15 @@ export const Login = ({ authenticated, setAuthenticated }) => {
     api
       .post("/user/login", data)
       .then((response) => {
-        const { token, user } = response.data;
+        const { token } = response.data;
 
-        localStorage.setItem("@doit:token", JSON.stringify(token));
-        localStorage.setItem("@doit:user", JSON.stringify(user));
+        localStorage.setItem("@Doit:token", JSON.stringify(token));
 
         setAuthenticated(true);
         toast.success("Login com sucesso");
         history.push("/dashboard");
       })
       .catch((err) => {
-        console.log(err);
         toast.error("Login/Senha incorreto");
       });
   };

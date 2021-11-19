@@ -1,9 +1,17 @@
 import { Header } from "./style";
 import { Buttons } from "../../Components/Buttons/index";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 
-export const Home = () => {
+export const Home = ({ authenticated }) => {
   const history = useHistory();
+
+  const handleNavigation = (path) => {
+    return history.push(path);
+  };
+
+  if (authenticated) {
+    return <Redirect to="/dashboard" />;
+  }
   return (
     <Header>
       <h2>
@@ -12,8 +20,10 @@ export const Home = () => {
       <p>Organize-se de forma fácil e efetiva</p>
 
       <div>
-        <Buttons onClick={() => history.push("/cadastro")}>Cadastre-se</Buttons>
-        <Buttons onClick={() => history.push("/login")} bgcolor="bgcolor">
+        <Buttons onClick={() => handleNavigation("/cadastro")}>
+          Cadastre-se
+        </Buttons>
+        <Buttons onClick={() => handleNavigation("/login")} bgcolor="bgcolor">
           Login
         </Buttons>
       </div>

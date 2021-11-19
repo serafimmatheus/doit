@@ -9,7 +9,7 @@ import { api } from "../../Services";
 import toast from "react-hot-toast";
 import { useState } from "react/cjs/react.development";
 
-export const Cadastro = ({ authenticated }) => {
+export const Cadastro = ({ authenticated, setAuthenticated }) => {
   const history = useHistory();
   const schema = yup.object().shape({
     name: yup
