@@ -5,6 +5,12 @@ export const SectionDash = styled.section`
     position: relative;
     display: flex;
     flex-direction: column;
+
+    button {
+      width: 200px;
+      border: none;
+      background-color: transparent;
+    }
   }
 `;
 
